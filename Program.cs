@@ -1,7 +1,4 @@
-﻿using System.Data.SqlTypes;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Unicode;
+﻿using System.Text;
 
 if (args.Length != 1)
 {
