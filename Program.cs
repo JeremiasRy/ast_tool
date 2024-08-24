@@ -40,7 +40,6 @@ static void DefineType(StreamWriter sw, string baseName, string className, strin
     sw.WriteLine("public class " + className + "(" + fieldList + ")" + " : " + baseName);
     sw.WriteLine("{");
     string[] fields = fieldList.Split(",");
-    sw.WriteLine();
     foreach (string field in fields)
     {
         string[] fieldSplit = field.TrimStart().Split(" ");
