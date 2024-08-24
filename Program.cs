@@ -23,6 +23,10 @@ static void DefineAst(string outDir, string baseName, string[] types)
     sw.WriteLine("namespace CSharpLox.Src;");
     sw.WriteLine();
     sw.WriteLine("public abstract class " + baseName + " \n{");
+
+    DefineVisitor(sw, baseName, types);
+    sw.WriteLine("  public abstract R Accept<R>(IVisitor<R> visitor);");
+
     sw.WriteLine("}");
     sw.WriteLine();
     foreach (string type in types)
@@ -32,7 +36,20 @@ static void DefineAst(string outDir, string baseName, string[] types)
         DefineType(sw, baseName, className, fields);
     }
 
+
     sw.Close();
+}
+
+static void DefineVisitor(StreamWriter sw, string baseName, string[] types)
+{
+    sw.WriteLine("  public interface IVisitor<R>");
+    sw.WriteLine("  {");
+    foreach (string type in types)
+    {
+        string typeName = type.Split(":")[0].Trim();
+        sw.WriteLine("      R Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
+    }
+    sw.WriteLine("  }");
 }
 
 static void DefineType(StreamWriter sw, string baseName, string className, string fieldList)
@@ -45,6 +62,10 @@ static void DefineType(StreamWriter sw, string baseName, string className, strin
         string[] fieldSplit = field.TrimStart().Split(" ");
         sw.WriteLine("  public readonly " + fieldSplit[0] + $" {fieldSplit[1][0].ToString().ToUpper()}{fieldSplit[1][1..]}" + " = " + fieldSplit[1] + ";");
     }
-
+    sw.WriteLine();
+    sw.WriteLine("  public override R Accept<R>(IVisitor<R> Visitor)");
+    sw.WriteLine("  {");
+    sw.WriteLine("    return Visitor.Visit" + className + baseName + "(this);");
+    sw.WriteLine("  }");
     sw.WriteLine("}");
 }
