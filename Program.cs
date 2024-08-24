@@ -45,7 +45,8 @@ static void DefineVisitor(StreamWriter sw, string baseName, string[] types)
     foreach (string type in types)
     {
         string typeName = type.Split(":")[0].Trim();
-        sw.WriteLine("  R Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
+        string nullObj = typeName == "Literal" ? "? " : " ";
+        sw.WriteLine("  R" + nullObj + "Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
     }
     sw.WriteLine("}");
 }
