@@ -11,7 +11,7 @@ DefineAst(outDir, "Expr",
 [
     "Binary : Expr left, Token op, Expr right",
     "Grouping : Expr expr",
-    "Literal : object val",
+    "Literal : object? val",
     "Unary : Token op, Expr right"
 ]);
 
