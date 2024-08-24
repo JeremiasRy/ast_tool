@@ -12,7 +12,8 @@ DefineAst(outDir, "Expr",
     "Binary : Expr left, Token op, Expr right",
     "Grouping : Expr expr",
     "Literal : object? val",
-    "Unary : Token op, Expr right"
+    "Unary : Token op, Expr right",
+    "Ternary : Expr condition, Expr ifTrue, Expr ifFalse"
 ]);
 
 static void DefineAst(string outDir, string baseName, string[] types)
