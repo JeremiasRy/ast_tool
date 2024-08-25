@@ -16,14 +16,19 @@ DefineAst(outDir, "Expr",
     "Ternary : Expr condition, Expr ifTrue, Expr ifFalse"
 ]);
 
+DefineAst(outDir, "Stmt", [
+    "ExprStmt : Expr expression",
+    "Print : Expr expression"
+]);
+
 static void DefineAst(string outDir, string baseName, string[] types)
 {
     string path = $"{outDir}/{baseName}.cs";
     using StreamWriter sw = new(File.Create(path), Encoding.UTF8);
 
     sw.WriteLine("namespace CSharpLox.Src;");
-    DefineVisitor(sw, baseName, types);
     sw.WriteLine("public abstract class " + baseName + " \n{");
+    DefineVisitor(sw, baseName, types);
     sw.WriteLine("  public abstract R Accept<R>(IVisitor<R> visitor);");
 
     sw.WriteLine("}");
@@ -40,15 +45,14 @@ static void DefineAst(string outDir, string baseName, string[] types)
 
 static void DefineVisitor(StreamWriter sw, string baseName, string[] types)
 {
-    sw.WriteLine("public interface IVisitor<R>");
-    sw.WriteLine("{");
+    sw.WriteLine("  public interface IVisitor<R>");
+    sw.WriteLine("    {");
     foreach (string type in types)
     {
         string typeName = type.Split(":")[0].Trim();
-        string nullObj = typeName == "Literal" ? "? " : " ";
-        sw.WriteLine("  R" + nullObj + "Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
+        sw.WriteLine("      abstract R? " + "Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
     }
-    sw.WriteLine("}");
+    sw.WriteLine("    }");
 }
 
 static void DefineType(StreamWriter sw, string baseName, string className, string fieldList)
