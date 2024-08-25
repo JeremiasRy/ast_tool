@@ -12,13 +12,15 @@ DefineAst(outDir, "Expr",
     "Binary : Expr left, Token op, Expr right",
     "Grouping : Expr expr",
     "Literal : object? val",
+    "Variable : Token name",
     "Unary : Token op, Expr right",
     "Ternary : Expr condition, Expr ifTrue, Expr ifFalse"
 ]);
 
 DefineAst(outDir, "Stmt", [
     "ExprStmt : Expr expression",
-    "Print : Expr expression"
+    "Print : Expr expression",
+    "Var : Token name, Expr? initializer"
 ]);
 
 static void DefineAst(string outDir, string baseName, string[] types)
