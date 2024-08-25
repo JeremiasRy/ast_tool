@@ -9,18 +9,20 @@ string outDir = args[0];
 
 DefineAst(outDir, "Expr",
 [
-    "Binary : Expr left, Token op, Expr right",
+    "Assign   : Token name, Expr value",
+    "Binary   : Expr left, Token op, Expr right",
     "Grouping : Expr expr",
-    "Literal : object? val",
+    "Literal  : object? val",
     "Variable : Token name",
-    "Unary : Token op, Expr right",
-    "Ternary : Expr condition, Expr ifTrue, Expr ifFalse"
+    "Unary    : Token op, Expr right",
+    "Ternary  : Expr condition, Expr ifTrue, Expr ifFalse"
 ]);
 
 DefineAst(outDir, "Stmt", [
+    "Block    : List<Stmt> statements",
     "ExprStmt : Expr expression",
-    "Print : Expr expression",
-    "Var : Token name, Expr? initializer"
+    "Print    : Expr expression",
+    "Var      : Token name, Expr? initializer"
 ]);
 
 static void DefineAst(string outDir, string baseName, string[] types)
