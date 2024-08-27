@@ -13,6 +13,7 @@ DefineAst(outDir, "Expr",
     "Binary   : Expr left, Token op, Expr right",
     "Grouping : Expr expr",
     "Literal  : object? val",
+    "Logical  : Expr left, Token op, Expr right",
     "Variable : Token name",
     "Unary    : Token op, Expr right",
     "Ternary  : Expr condition, Expr ifTrue, Expr ifFalse"
@@ -21,8 +22,12 @@ DefineAst(outDir, "Expr",
 DefineAst(outDir, "Stmt", [
     "Block    : List<Stmt> statements",
     "ExprStmt : Expr expression",
+    "If       : Expr condition, Stmt thenBranch, Stmt? elseBranch",
     "Print    : Expr expression",
-    "Var      : Token name, Expr? initializer"
+    "While    : Expr condition, Stmt body",
+    "Var      : Token name, Expr? initializer",
+    "Break    : Token name",
+    "Continue : Token name"
 ]);
 
 static void DefineAst(string outDir, string baseName, string[] types)
@@ -50,13 +55,13 @@ static void DefineAst(string outDir, string baseName, string[] types)
 static void DefineVisitor(StreamWriter sw, string baseName, string[] types)
 {
     sw.WriteLine("  public interface IVisitor<R>");
-    sw.WriteLine("    {");
+    sw.WriteLine("  {");
     foreach (string type in types)
     {
         string typeName = type.Split(":")[0].Trim();
-        sw.WriteLine("      abstract R? " + "Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
+        sw.WriteLine("    abstract R? " + "Visit" + typeName + baseName + "(" + typeName + " " + baseName.ToLower() + ");");
     }
-    sw.WriteLine("    }");
+    sw.WriteLine("  }");
 }
 
 static void DefineType(StreamWriter sw, string baseName, string className, string fieldList)
