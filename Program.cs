@@ -11,6 +11,7 @@ DefineAst(outDir, "Expr",
 [
     "Assign   : Token name, Expr value",
     "Binary   : Expr left, Token op, Expr right",
+    "Call     : Expr callee, Token paren, List<Expr> arguments",
     "Grouping : Expr expr",
     "Literal  : object? val",
     "Logical  : Expr left, Token op, Expr right",
@@ -20,14 +21,16 @@ DefineAst(outDir, "Expr",
 ]);
 
 DefineAst(outDir, "Stmt", [
-    "Block    : List<Stmt> statements",
-    "ExprStmt : Expr expression",
-    "If       : Expr condition, Stmt thenBranch, Stmt? elseBranch",
-    "Print    : Expr expression",
-    "While    : Expr condition, Stmt body",
-    "Var      : Token name, Expr? initializer",
-    "Break    : Token name",
-    "Continue : Token name"
+    "Block        : List<Stmt> statements",
+    "ExprStmt     : Expr expression",
+    "FunctionStmt : Token name, List<Token> prms, List<Stmt> body",
+    "If           : Expr condition, Stmt thenBranch, Stmt? elseBranch",
+    "Print        : Expr expression",
+    "While        : Expr condition, Stmt body",
+    "Var          : Token name, Expr? initializer",
+    "Break        : Token name",
+    "Continue     : Token name",
+    "ReturnStmt   : Token keyword, Expr? value"
 ]);
 
 static void DefineAst(string outDir, string baseName, string[] types)
