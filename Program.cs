@@ -9,6 +9,8 @@ string outDir = args[0];
 
 DefineAst(outDir, "Expr",
 [
+    "Get      : Expr obj, Token name",
+    "Set      : Expr obj, Token name, Expr value",
     "Assign   : Token name, Expr value",
     "Binary   : Expr left, Token op, Expr right",
     "Call     : Expr callee, Token paren, List<Expr> arguments",
@@ -22,6 +24,7 @@ DefineAst(outDir, "Expr",
 
 DefineAst(outDir, "Stmt", [
     "Block        : List<Stmt> statements",
+    "Class        : Token name, List<FunctionStmt> methods",
     "ExprStmt     : Expr expression",
     "FunctionStmt : Token name, List<Token> prms, List<Stmt> body",
     "If           : Expr condition, Stmt thenBranch, Stmt? elseBranch",
