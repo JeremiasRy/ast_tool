@@ -11,6 +11,7 @@ DefineAst(outDir, "Expr",
 [
     "Get      : Expr obj, Token name",
     "Set      : Expr obj, Token name, Expr value",
+    "This     : Token keyword",
     "Assign   : Token name, Expr value",
     "Binary   : Expr left, Token op, Expr right",
     "Call     : Expr callee, Token paren, List<Expr> arguments",
