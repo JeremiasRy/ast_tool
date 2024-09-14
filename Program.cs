@@ -11,6 +11,7 @@ DefineAst(outDir, "Expr",
 [
     "Get      : Expr obj, Token name",
     "Set      : Expr obj, Token name, Expr value",
+    "Super    : Token keyword, Token method",
     "This     : Token keyword",
     "Assign   : Token name, Expr value",
     "Binary   : Expr left, Token op, Expr right",
@@ -25,7 +26,7 @@ DefineAst(outDir, "Expr",
 
 DefineAst(outDir, "Stmt", [
     "Block        : List<Stmt> statements",
-    "Class        : Token name, List<FunctionStmt> methods",
+    "Class        : Token name, Variable superclass, List<FunctionStmt> methods",
     "ExprStmt     : Expr expression",
     "FunctionStmt : Token name, List<Token> prms, List<Stmt> body",
     "If           : Expr condition, Stmt thenBranch, Stmt? elseBranch",
